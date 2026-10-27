@@ -302,7 +302,7 @@ export const ACHIEVEMENTS: AchievementDef[] = [
   { id: 'recuperacao', name: 'Sabedoria do descanso', desc: 'Faça uma Recuperação Ativa.', icon: '🧘', check: (_, t) => t.recoveries >= 1 },
   { id: 'formado', name: 'Formado', desc: 'Conclua um programa inteiro.', icon: '🎓', check: (s) => s.completedPrograms.length >= 1 },
   { id: 'missoes', name: 'Caçador de missões', desc: 'Complete as 3 missões de um dia.', icon: '🎯', check: (s) => s.missions.bonusClaimed },
-  { id: 'teste', name: 'Conhece-te a ti mesmo', desc: 'Registre um Teste do Frango.', icon: '📋', check: (s) => s.tests.length >= 1 },
+  { id: 'teste', name: 'Conhece-te a ti mesmo', desc: 'Registre um Teste do Frangão.', icon: '📋', check: (s) => s.tests.length >= 1 },
   { id: 'estilo', name: 'Frango estiloso', desc: 'Compre seu primeiro item.', icon: '🕶️', check: (s) => s.owned.length >= 1 },
   { id: 'colecionador', name: 'Colecionador', desc: 'Tenha 6 itens no galinheiro.', icon: '🧺', check: (s) => s.owned.filter((id) => id !== 'ovo-protetor').length >= 6 },
   { id: 'pintinho', name: 'Pintinho!', desc: 'Chegue ao nível 3.', icon: '🐤', check: (s) => levelInfo(s.xp).level >= 3 },

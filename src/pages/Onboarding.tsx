@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { CloudSync } from '../components/CloudSync';
 import { Mascot } from '../components/Mascot';
 import { PROGRAM_MAP } from '../data/programs';
 import { EQUIPMENT_LABEL, type Equipment } from '../data/types';
@@ -13,7 +14,7 @@ const GOALS: { id: Goal; icon: string; title: string; text: string }[] = [
 ];
 
 const LEVELS = [
-  { level: 1, title: 'Nenhuma ainda', text: 'Tudo bem! É para isso que o Frango existe.' },
+  { level: 1, title: 'Nenhuma ainda', text: 'Tudo bem! É para isso que o Frangão existe.' },
   { level: 2, title: '1 a 5 flexões', text: 'Já tem uma base para construir.' },
   { level: 3, title: '6 a 15 flexões', text: 'Você está no caminho certo.' },
   { level: 4, title: 'Mais de 15', text: 'Pronto para coisas avançadas.' },
@@ -30,7 +31,8 @@ export function recommendProgram(level: number, equipment: Equipment[], goal: Go
 }
 
 export function Onboarding() {
-  const { onboard } = useStore();
+  const { onboard, cloud } = useStore();
+  const [restoring, setRestoring] = useState(false);
   const [step, setStep] = useState(0);
   const [name, setName] = useState('');
   const [goal, setGoal] = useState<Goal>('comecar');
@@ -51,7 +53,7 @@ export function Onboarding() {
     <div className="onb-step onb-hero" key="hello">
       <Mascot stage="ovo" mood="happy" size={190} />
       <h1>
-        Bem-vindo ao <span className="brand">Frango</span>!
+        Bem-vindo ao <span className="brand">Frangão</span>!
       </h1>
       <p className="lead">
         Calistenia em casa, do zero, sem precisar de academia nem de barra. Você treina, ganha XP e milho, e o seu ovo vai
@@ -60,6 +62,11 @@ export function Onboarding() {
       <button className="btn btn-primary btn-lg" onClick={() => setStep(1)}>
         Bora começar 🐣
       </button>
+      {cloud.configured && (
+        <button className="btn btn-ghost" onClick={() => setRestoring(true)}>
+          Já uso o Frangão em outro aparelho
+        </button>
+      )}
     </div>,
 
     <div className="onb-step" key="name">
@@ -101,7 +108,7 @@ export function Onboarding() {
     <div className="onb-step" key="equip">
       <h2>O que você tem em casa?</h2>
       <p className="muted">
-        Não tem nada? Perfeito — todo o Frango funciona <strong>sem equipamento nenhum</strong>. Marque só se quiser variações extras.
+        Não tem nada? Perfeito — todo o Frangão funciona <strong>sem equipamento nenhum</strong>. Marque só se quiser variações extras.
       </p>
       <div className="choice-list">
         {(Object.keys(EQUIPMENT_LABEL) as Equipment[]).map((e) => (
@@ -146,6 +153,40 @@ export function Onboarding() {
       </p>
     </div>,
   ];
+
+  if (restoring) {
+    return (
+      <div className="onboarding">
+        <div className="onb-top">
+          <button className="icon-btn" aria-label="Voltar" onClick={() => setRestoring(false)}>
+            ←
+          </button>
+        </div>
+        <div className="onb-step">
+          <h2>Entrar na sua conta</h2>
+          <CloudSync />
+          {cloud.email && cloud.status !== 'syncing' && (
+            <>
+              <p className="small muted">
+                {cloud.status === 'error'
+                  ? 'Não deu para baixar seu progresso agora.'
+                  : 'Essa conta ainda não tem progresso salvo. Monte seu plano e ele fica guardado nela.'}
+              </p>
+              <button
+                className="btn btn-primary btn-lg"
+                onClick={() => {
+                  setRestoring(false);
+                  setStep(1);
+                }}
+              >
+                Montar meu plano
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="onboarding">

@@ -1,7 +1,7 @@
-// Service worker do Frango: deixa o app funcionando offline.
+// Service worker do Frangão: deixa o app funcionando offline.
 // Navegação: rede primeiro (pega atualizações), cache se estiver offline.
 // Arquivos estáticos: cache primeiro (os nomes têm hash, então nunca ficam velhos).
-const CACHE = 'frango-v1';
+const CACHE = 'frangao-v1';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((c) => c.addAll(['./', './index.html', './manifest.webmanifest', './icon.svg'])));

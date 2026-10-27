@@ -74,6 +74,8 @@ export interface AppState {
   records: Record<string, { value: number; date: string }>;
   tests: FitnessTest[];
   settings: Settings;
+  /** última alteração feita neste aparelho (ISO), usada para sincronizar */
+  updatedAt: string;
 }
 
 export const initialState = (): AppState => ({
@@ -94,6 +96,7 @@ export const initialState = (): AppState => ({
   records: {},
   tests: [],
   settings: { sound: true, voice: false, vibration: true, warmup: true, theme: 'auto' },
+  updatedAt: '',
 });
 
 export const STORAGE_KEY = 'frango:v1';

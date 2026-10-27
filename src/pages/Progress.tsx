@@ -51,7 +51,7 @@ export function Progress() {
 
       <section className="card">
         <div className="section-title">
-          <h2>📋 Teste do Frango</h2>
+          <h2>📋 Teste do Frangão</h2>
           <Link to="/teste" className="btn btn-small btn-primary">
             Fazer teste
           </Link>

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Frango — design tokens
+   Frangão — design tokens
    ========================================================================== */
 :root {
   --bg: #fff8ee;
@@ -2072,4 +2072,42 @@ select {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001s !important;
   }
+}
+
+/* ==========================================================================
+   Sincronização
+   ========================================================================== */
+.cloud {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cloud p {
+  margin: 0;
+}
+.cloud-account {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  overflow-wrap: anywhere;
+}
+.cloud-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--good);
+  flex-shrink: 0;
+}
+.cloud-dot.syncing {
+  background: var(--gold);
+  animation: pulse 1s ease-in-out infinite;
+}
+.cloud-dot.error {
+  background: var(--danger);
+}
+.code-input {
+  letter-spacing: 0.4em;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }

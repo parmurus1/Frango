@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { CloudSync } from '../components/CloudSync';
 import { PageHeader } from '../components/ui';
 import { EQUIPMENT_LABEL, type Equipment } from '../data/types';
 import { beep, speak } from '../lib/feedback';
@@ -8,7 +9,8 @@ import { useStore } from '../lib/store';
 const LEVEL_LABEL = ['', 'Iniciante absoluto', 'Iniciante', 'Intermediário', 'Avançado', 'Elite'];
 
 export function Settings() {
-  const { state, updateProfile, updateSettings, importData, reset } = useStore();
+  const { state, cloud, updateProfile, updateSettings, importData, reset } = useStore();
+  const cloudEmail = cloud.email;
   const profile = state.profile!;
   const s = state.settings;
   const file = useRef<HTMLInputElement>(null);
@@ -37,7 +39,7 @@ export function Settings() {
     const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = `frango-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `frangao-backup-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(a.href);
   };
@@ -96,6 +98,11 @@ export function Settings() {
         {toggle('vibration', 'Vibração', 'Vibra quando o tempo acaba (no celular).')}
       </section>
 
+      <section className="card" id="nuvem">
+        <h2>☁️ Sincronizar entre aparelhos</h2>
+        <CloudSync />
+      </section>
+
       <section className="card">
         <h2>Aparência</h2>
         <div className="seg">
@@ -114,8 +121,8 @@ export function Settings() {
       </section>
 
       <section className="card">
-        <h2>Seus dados</h2>
-        <p className="small muted">Tudo fica salvo só neste aparelho. Faça um backup para trocar de celular ou não perder nada.</p>
+        <h2>Backup em arquivo</h2>
+        <p className="small muted">Uma cópia do seu progresso num arquivo, para guardar ou levar para outro aparelho sem conta.</p>
         <div className="btn-row">
           <button className="btn btn-soft" onClick={exportData}>
             ⬇ Exportar backup
@@ -129,7 +136,8 @@ export function Settings() {
         {confirmReset ? (
           <div className="danger-zone">
             <p>
-              <strong>Tem certeza?</strong> Isso apaga XP, histórico, itens e conquistas. Não dá para desfazer.
+              <strong>Tem certeza?</strong> Isso apaga deste aparelho o XP, o histórico, os itens e as conquistas.{' '}
+              {cloudEmail ? 'Você também sai da conta; o progresso salvo na nuvem continua lá.' : 'Não dá para desfazer.'}
             </p>
             <div className="btn-row">
               <button className="btn btn-danger" onClick={reset}>
@@ -150,7 +158,7 @@ export function Settings() {
       <section className="card about">
         <h2>Sobre</h2>
         <p className="small">
-          <strong>Frango</strong> é um app de calistenia em casa, gratuito e sem anúncios. Funciona offline e pode ser instalado na tela
+          <strong>Frangão</strong> é um app de calistenia em casa, gratuito e sem anúncios. Funciona offline e pode ser instalado na tela
           inicial do celular ("Adicionar à tela de início").
         </p>
         <p className="disclaimer">

@@ -59,7 +59,7 @@ export function Mascot({ stage, mood = 'idle', color, equipped = {}, size = 180,
       width={size}
       height={size * 1.1}
       role="img"
-      aria-label={title ?? `Mascote Frango (${stage})`}
+      aria-label={title ?? `Mascote do Frangão (${stage})`}
     >
       <defs>
         <radialGradient id="aura" cx="50%" cy="50%" r="50%">

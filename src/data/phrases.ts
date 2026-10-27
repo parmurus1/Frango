@@ -29,7 +29,7 @@ export const TIPS = [
   'Treinar 3 vezes por semana por um ano vale mais que 7 vezes por semana por um mês.',
   'Em dias de descanso, a Recuperação Ativa mantém sua sequência e solta o corpo.',
   'Respire: solte o ar no esforço (subida) e puxe na volta.',
-  'Faça o Teste do Frango a cada 4 semanas para ver sua evolução em números.',
+  'Faça o Teste do Frangão a cada 4 semanas para ver sua evolução em números.',
   'Treine num chão firme e antiderrapante. Um tapete de yoga ou toalha ajuda.',
 ];
 

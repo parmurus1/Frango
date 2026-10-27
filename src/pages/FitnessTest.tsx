@@ -26,7 +26,7 @@ export function FitnessTestPage() {
 
   return (
     <div className="fitness-test">
-      <PageHeader title="Teste do Frango" back="/progresso" />
+      <PageHeader title="Teste do Frangão" back="/progresso" />
 
       {stage === 'intro' && (
         <section className="card center">
